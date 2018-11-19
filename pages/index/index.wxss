@@ -1,0 +1,12 @@
+@import '../canteenList.wxss';
+/**index.wxss**/
+.category-nav {
+  overflow: hidden;
+}
+
+.category-nav .icon-nav {
+  height: auto;
+  width: 100%;
+  padding: 30rpx 0 0;
+  align-items: center;
+}

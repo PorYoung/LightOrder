@@ -1,0 +1,14 @@
+@import "./libs/icon.wxss";
+@import "./libs/colorui.wxss";
+/**app.wxss**/
+page,.container{
+  height: 100%;
+  width: 100%;
+  /* background: #f1f1f1; */
+}
+
+.bgcolor{
+  background-color: #FE5858;
+  /* background: linear-gradient(to bottom,0 #FE5858,70% #FF416C, #FF4B2B, #FE5858); */
+  color: #fff;
+}

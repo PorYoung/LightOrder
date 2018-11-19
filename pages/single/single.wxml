@@ -1,0 +1,265 @@
+<!--pages/single/single.wxml-->
+<!-- <navigator open-type='switchTab' url='../index/index' class='primary btn xs iconfont icon-back' style='position:absolute;bottom:100rpx;'></navigator> -->
+<view class='container {{showCanteenDetail || showfoodDetail?"when-topbox-spread":""}}' scroll-y bindscroll='containerScroll'>
+  <!-- top box -->
+  <view class='topbox {{showCanteenDetail?"topbox-spread":""}}'>
+    <view class='canteen-bar {{showCanteenDetail?"canteen-bar-spread":""}}' bindtap='showCanteenDetail'>
+      <view class='goods-list-li'>
+        <view class='goods-list-main'>
+          <view class='c-avatar-wrap'>
+            <image src='{{canteen.avatar}}' mode='aspectFill' class='goods-list-img c-avatar'></image>
+            <view class='badge primary radius capsule-badge c-time'>
+              <text>⏱</text>
+              <text>{{canteen.startTime}}-{{canteen.closeTime}}</text>
+            </view>
+          </view>
+          <view class='goods-list-text'>
+            <view class='goods-list-top c-list-top'>
+              <view class='c-header'>
+                <view class='text-lg c-name'>{{canteen.name}}</view>
+                <view class='c-status sm warning-text'>{{canteen.status==0?'营业中':'休息中'}}</view>
+              </view>
+              <view class='rating-item'>
+                <view class='rating-star'>
+                  <text wx:for='{{5}}' class='iconfont {{index<5?"icon-favorfill warning-text":"icon-favor gray-text"}}'></text>
+                </view>
+                <view class='rating-text gray-text'>
+                  <text class='warning-text'>5.0</text>
+                  <text>月售{{canteen.monthSale>10000?'10k+':canteen.monthSale}}份</text>
+                </view>
+              </view>
+              <view class='c-address'>
+                <text class='iconfont icon-location'></text>
+                <text class='gray-text'>{{canteen.address}}</text>
+              </view>
+            </view>
+            <view class='goods-list-foot c-list-foot'>
+              <view class='badge warning radius capsule-badge c-tips'>
+                <text>￥</text>
+                <text>{{canteen.category}}</text>
+              </view>
+              <view class='badge secondary round capsule-badge c-tips'>
+                <text>{{canteen.delivery==0?'暂不配送':'支持配送'}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class='canteen-bar-foot'>
+          <view class='c-notice {{showCanteenDetail?"":"c-notice-hidden"}}'>
+            <text class='iconfont icon-titles warning-text'></text>
+            <text class='text-lg ml-xs'>{{canteen.notice}}</text>
+          </view>
+        </view>
+        <view class='list-box canteen-bar-detail {{showCanteenDetail?"canteen-bar-detail-spread":""}}'>
+          <view class='list-li'>
+            <view>
+              <text class='iconfont icon-titles success-text'></text>
+              <text class='text-lg ml-xs'>Tel: {{canteen.tel}}</text>
+            </view>
+          </view>
+          <view class='list-li'>
+            <view>
+              <text class='iconfont icon-titles success-text'></text>
+              <text class='text-lg ml-xs'>商铺图片</text>
+            </view>
+          </view>
+          <view class='doc-main'>
+            <view class='lattice-image'>
+              <view>
+                <image src='/images/avatar/6.jpg' mode='aspectFill'></image>
+              </view>
+              <view wx:for='{{canteen.images}}' wx:for-item='image'>
+                <image src='{{image}}' mode='aspectFill'></image>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='iconfont icon-fold topbox-collapse'></view>
+  </view>
+  <!-- switch bar -->
+  <view class='topbar'>
+    <view class='topbar-food topbar-btn {{switchComment?"":"active"}}' bindtap='switchToContent'>
+      <text>商品</text>
+    </view>
+    <view class='topbar-comment topbar-btn {{switchComment?"active":""}}' bindtap='switchToComment'>
+      <text>评价</text>
+    </view>
+  </view>
+  <view class='content-box' style='left:{{switchComment?"-100%":""}}'>
+    <scroll-view class='left-menu' scroll-y>
+      <view class='menu-category {{item.categoryID==scrollCategoryID?"selected warning-text":""}}' wx:for='{{foodData}}' data-category-id='{{item.categoryID}}' id='category-menu-{{item.categoryID}}' bindtap='scrollToCategory'>{{item.name}}</view>
+    </scroll-view>
+    <scroll-view class='right-list' scroll-y bindscroll='rightListScroll' scroll-into-view='{{toView}}'>
+      <block wx:for='{{foodData}}' wx:for-item='category' wx:for-index='categoryOrderId'>
+        <view id='category-{{category.categoryID}}' style='height:{{categoryHeight}}rpx;display:flex;align-items:center;'>
+          <text class='iconfont icon-titles warning-text'></text>
+          <text class='text-lg ml-xs'>{{category.name}}</text>
+        </view>
+        <view class='goods-list-li' style='height:{{foodHeight}}rpx;' wx:for='{{category.foods}}' wx:for-item='food' wx:for-index='foodOrderId' bindtap='showFoodDetail' data-food-id='{{food.fid}}' data-category-order-id='{{categoryOrderId}}' data-food-order-id='{{foodOrderId}}'>
+          <view class='goods-list-main'>
+            <image src='{{food.imgUrl}}' mode='aspectFill' class='goods-list-img food-img'></image>
+            <view class='goods-list-text'>
+              <view class='goods-list-top'>
+                <view class='text-lg food-name'>{{food.name}}</view>
+                <view class='gray-text food-introduce'>{{food.introduce}}</view>
+              </view>
+              <view class='goods-list-foot'>
+                <view class='goods-list-price'>{{food.price}}
+                  <text class='gray-text' wx:if='{{food.original_price!=null}}'>{{food.original_price}}</text>
+                </view>
+
+                <view class='btn-wrap'>
+                  <button class='btn sm danger' hidden='{{foodSelected[food.fid].count <= 0}}' data-food-order-id='{{foodOrderId}}' data-category-order-id='{{categoryOrderId}}' data-food-id='{{food.fid}}' data-select-type='remove' catchtap='{{food.soldOut?"returnNull":"triggerSelect"}}'>
+                    <text class='iconfont icon-move'></text>
+                  </button>
+                  <button class='warning-text btn sm' hidden='{{foodSelected[food.fid].count <= 0}}'>
+                    <text>{{foodSelected[food.fid].count}}</text>
+                  </button>
+                  <button class='{{food.soldOut?"gray":"danger"}} btn sm' data-category-order-id='{{categoryOrderId}}' data-food-order-id='{{foodOrderId}}' data-food-id='{{food.fid}}' data-select-type='add' catchtap='{{food.soldOut?"returnNull":"triggerSelect"}}'>
+                    <text wx:if='{{food.soldOut}}'>售空</text>
+                    <text class='iconfont icon-add' wx:if='{{!food.soldOut}}'></text>
+                  </button>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+  </view>
+
+  <view class='comment-box' style='left:{{switchComment?"0":""}}'>
+    <scroll-view class='comment-scroll' scroll-y>
+      <view class="comment" wx:for='{{[1,2,3,4,5,6]}}'>
+        <view class="comment-item ph-sm">
+          <view class="bar justify-between">
+            <view class="bar-fr bar">
+              <image src="http://www.diwuyuan.com/bbs/uc_server/data/avatar/000/00/02/52_avatar_big.jpg" class="round"></image>
+              <text class='ml-sm'>食客</text>
+              <text class="gray-text text-sm"> 3 小时前</text>
+            </view>
+          </view>
+          <view class="comment-mian">
+            <view class="comment-content">真的好吃不贵！</view>
+            <view class="lattice-image">
+              <view style='background-image:url(http://image.weilanwl.com/img/4x3-1.jpg)'>
+              </view>
+              <view style='background-image:url(http://image.weilanwl.com/img/3x4-3.jpg)'>
+              </view>
+            </view>
+            <view class="comment-sub">
+              <view class="comment-sub-name">
+                <text class="success-text">店家</text>
+                <text class="gray-text text-sm">2 分钟前</text>
+              </view>
+              <view class="comment-sub-content">感谢评价！</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class='bar bottomfix shadow btns footbox'>
+    <view class='pop-bus-cover' style='bottom:{{popBusPosition}};' catchtap='collapsePopBus' catchtouchmove='returnNull'>
+      <view class='pop-bus'>
+        <view style='height:80rpx;display:flex;align-items:center;'>
+          <text class='iconfont icon-titles danger-text'></text>
+          <text class='text-lg ml-xs'>已点食品</text>
+        </view>
+        <view class='goods-list-li' class='goods-list-li pop-bus-food-list' wx:for='{{foodSelected}}' wx:for-item='selected' wx:for-index='selectedId' bindtap='showFoodDetail' data-food-id='{{selected.foodId}}' data-category-order-id='{{selected.categoryOrderId}}' data-food-order-id='{{selected.foodOrderId}}' wx:if='{{selected.count>0}}'>
+            <view class='text-lg food-name'>{{foodData[selected.categoryOrderId].foods[selected.foodOrderId].name}}</view>
+            <view class='goods-list-price'>{{selected.count * foodData[selected.categoryOrderId].foods[selected.foodOrderId].price}}</view>
+            <view class='btn-wrap'>
+              <button class='btn sm danger' data-food-order-id='{{selected.foodOrderId}}' data-category-order-id='{{selected.categoryOrderId}}' data-food-id='{{selected.foodId}}' data-select-type='remove' catchtap='triggerSelect'>
+                <text class='iconfont icon-move'></text>
+              </button>
+              <button class='warning-text btn sm'>
+                <text>{{selected.count}}</text>
+              </button>
+              <button class='danger btn sm' data-category-order-id='{{selected.categoryOrderId}}' data-food-order-id='{{selected.foodOrderId}}' data-food-id='{{selected.foodId}}' data-select-type='add' catchtap='triggerSelect'>
+                <text class='iconfont icon-add'></text>
+              </button>
+            </view>
+        </view>
+      </view>
+    </view>
+    <view class='flex-twice text-sm order-bus' bindtap='showPopBus'>
+      <view class='order-bus-icon'>
+        <view class='iconfont icon-cart warning-text'></view>
+        <text class='badge mark-badge'>{{totalSelectCount}}</text>
+      </view>
+      <view class='order-bus-text gray-text'>
+        <text>￥</text>
+        <text>{{totalPrice}}</text>
+      </view>
+    </view>
+    <view class='order-submit flex-sub' catchtap='goToOrder'>立即订购</view>
+  </view>
+
+  <!-- food detail panel -->
+  <view class='food-detail-panel' style='top:{{foodDetailPanelTop}};' bindtap='collapseFoodDetail'>
+    <view class='food-detail'>
+      <view class='food-detail-top'>
+        <image src='{{showFood.imgUrl}}' mode='widthFix' class='food-detail-top-img'></image>
+        <view class='food-detail-text'>
+          <view class='food-detail-name text-lg p-sm'>{{showFood.name}}</view>
+          <view class='food-detail-introduce gray-text p-sm'>{{showFood.introduce}}</view>
+          <view class='food-detail-sale p-sm gray-text'>月销量: {{showFood.monthSale}}</view>
+          <view class='food-detail-orderbar flex p-sm justify-end'>
+            <view class='food-detail-price goods-list-price'>{{showFood.price}}
+              <text class='gray-text' wx:if='{{showFood.original_price!=null}}'>{{showFood.original_price}}</text>
+            </view>
+
+            <view class='btn-wrap'>
+              <button class='btn sm danger' hidden='{{foodSelected[showFood.foodId].count <= 0}}' data-category-order-id='{{showFood.categoryOrderId}}' data-food-order-id='{{showFood.foodOrderId}}' data-food-id='{{showFood.foodId}}' data-select-type='remove' catchtap='{{showFood.soldOut?"returnNull":"triggerSelect"}}'>
+                <text class='iconfont icon-move'></text>
+              </button>
+              <button class='warning-text btn sm' hidden='{{foodSelected[showFood.foodId].count <= 0}}'>
+                <text>{{foodSelected[showFood.foodId].count}}</text>
+              </button>
+              <button class='{{showFood.soldOut?"gray":"danger"}} btn sm' data-category-order-id='{{showFood.categoryOrderId}}' data-food-order-id='{{showFood.foodOrderId}}' data-food-id='{{showFood.foodId}}' data-select-type='add' catchtap='{{showFood.soldOut?"returnNull":"triggerSelect"}}'>
+                <text wx:if='{{showFood.soldOut}}'>售空</text>
+                <text class='iconfont icon-add' wx:if='{{!showFood.soldOut}}'></text>
+              </button>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class='food-detail-foot'>
+        <view class='p-sm text-lg'>
+          <text class='iconfont icon-title success-text'></text> 评论
+        </view>
+        <view class="comment">
+          <view class="comment-item ph-sm">
+            <view class="bar justify-between">
+              <view class="bar-fr bar">
+                <image src="http://www.diwuyuan.com/bbs/uc_server/data/avatar/000/00/02/52_avatar_big.jpg" class="round"></image>
+                <text class='ml-sm'>食客</text>
+                <text class="gray-text text-sm"> 3 小时前</text>
+              </view>
+            </view>
+            <view class="comment-mian">
+              <view class="comment-content">真的好吃不贵！</view>
+              <view class="lattice-image">
+                <view style='background-image:url(http://image.weilanwl.com/img/4x3-1.jpg)'>
+                </view>
+                <view style='background-image:url(http://image.weilanwl.com/img/3x4-3.jpg)'>
+                </view>
+              </view>
+              <view class="comment-sub">
+                <view class="comment-sub-name">
+                  <text class="success-text">店家</text>
+                  <text class="gray-text text-sm">2 分钟前</text>
+                </view>
+                <view class="comment-sub-content">感谢评价！</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

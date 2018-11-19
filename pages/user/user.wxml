@@ -1,0 +1,52 @@
+<!--pages/user/user.wxml-->
+<view class='container'>
+<view class="user">
+  <view class="user-top">
+    <view class="user-img">
+      <image src="{{userInfo&&userInfo.avatarUrl!=null?userInfo.avatarUrl:'/images/icon/404_2.png'}}" class='radius'></image>
+    </view>
+    <view class="user-text">
+      <view class="user-name">
+        <!-- {{userInfo}} -->
+        <text>{{userInfo&&userInfo.nickName!=null?userInfo.nickName:"sign in"}}</text>
+      </view>
+      <view class="user-sub cf">
+        <view class="list-li">
+          <view class="list-text">
+            <view class="iconfont icon-medal danger-text"> </view> 学号:
+            <text>{{userInfo&&userInfo.uid!=null?userInfo.uid:" "}}</text>
+          </view>
+        </view>
+        <view class="list-li">
+          <view class="list-text">
+            <view class="iconfont icon-medal danger-text"> </view> Phone:
+            <text>{{userInfo&&userInfo.phone!=null?userInfo.phone:" "}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="user-nav icon-nav-box">
+    <view class="icon-nav">
+      <navigator url='./orders/orders' hover-class="none" class="icon-nav-navigator">
+        <text class="iconfont icon-moneybagfill"></text>
+        <text class="icon-nav-text">订单</text>
+      </navigator>
+      <navigator hover-class="none" class="icon-nav-navigator">
+        <text class="iconfont icon-radiobox"></text>
+        <text class="icon-nav-text">圈子</text>
+      </navigator>
+      <navigator hover-class="none" class="icon-nav-navigator">
+        <text class="iconfont icon-cartfill"><text class='badge mark-badge'>9</text></text>
+        <text class="icon-nav-text">购物车</text>
+      </navigator>
+      <navigator hover-class="none" class="icon-nav-navigator">
+        <text class="iconfont icon-messagefill"><text class='badge mark-badge'>99+</text></text>
+        <text class="icon-nav-text">消息</text>
+      </navigator>
+    </view>
+  </view>
+  <view class='user-bg' style='background-image:url(http://www.diwuyuan.com/bbs/uc_server/data/avatar/000/00/02/52_avatar_big.jpg)'>
+  </view>
+</view>
+</view>

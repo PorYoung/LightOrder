@@ -1,0 +1,14 @@
+/* pages/user/orders/orders.wxss */
+.ordersNull{
+  height: 680rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 48rpx;
+}
+.ordersNull image{
+  height: 256rpx;
+  width: 256rpx;
+  padding: 30rpx;
+}

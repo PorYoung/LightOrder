@@ -1,0 +1,15 @@
+@import '../canteenList.wxss';
+/* pages/search/search.wxss */
+.searchNull{
+  height: 680rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 48rpx;
+}
+.searchNull image{
+  height: 256rpx;
+  width: 256rpx;
+  padding: 30rpx;
+}

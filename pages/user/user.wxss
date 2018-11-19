@@ -1,0 +1,19 @@
+/* pages/user/user.wxss */
+.container{
+  height: 100%;
+}
+.user-top{
+  flex-direction: column;
+  padding: 160rpx 30rpx;
+}
+.user-text{
+  padding-left: initial;
+  line-height: initial;
+  padding: 32rpx 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.user-sub.cf .list-li{
+  border-bottom: none;
+}

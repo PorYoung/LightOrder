@@ -1,0 +1,269 @@
+@import '../canteenList.wxss';
+
+/* pages/single/single.wxss */
+
+.container {
+  /* height: 100vh; */
+  height: calc(100vh + 300rpx);
+  position: relative;
+}
+
+.container.when-topbox-spread {
+  /* height: 100vh; */
+  overflow: hidden;
+  height: 100%;
+}
+
+.topbox {
+  /* background: #FE5858; */
+  height: 300rpx;
+  background: linear-gradient(to bottom, #fe5858 0, #fe5858 160rpx, #f6f7f9 160rpx, #f6f7f9);
+  position: relative;
+  transition: height 0.3s;
+  z-index: 3;
+}
+
+.topbox-spread {
+  height: calc(100vh - 91rpx);
+}
+
+.topbox-spread .topbox-collapse {
+  opacity: 1;
+}
+
+.topbox-collapse {
+  position: absolute;
+  left: 50%;
+  bottom: 15rpx;
+  font-size: 32rpx;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+/* canteen bar style */
+
+.canteen-bar {
+  margin: 0 16rpx;
+  height: 100%;
+  background: #fff;
+  border-radius: 8rpx;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.canteen-bar .goods-list-li {
+  background: transparent;
+  border: none;
+}
+
+.canteen-bar-detail {
+  height: 0;
+  overflow: hidden;
+  padding: 0;
+}
+
+.canteen-bar-detail-spread {
+  height: auto;
+}
+
+.c-notice {
+  padding: 15rpx 0 0;
+}
+
+.c-notice-hidden {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.canteen-bar-spread {
+  height: 98%;
+  transition: height 0.3s;
+  overflow: auto;
+}
+
+/* switch bar style */
+
+.topbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 36rpx;
+  height: 90rpx;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.topbar .topbar-btn {
+  padding: 16rpx 48rpx;
+}
+
+.topbar-btn.active {
+  border-bottom: 5rpx solid #dd514c;
+  /* border-bottom: 5rpx solid #fff; */
+  color: #f37b1d;
+  /* color: #fff; */
+  border-radius: 3rpx;
+}
+
+/* content and comment scroll box */
+
+.content-box, .comment-box {
+  display: flex;
+  margin-bottom: 91rpx;
+  transition: left 0.3s;
+}
+
+.left-menu, .right-list, .comment-scroll {
+  height: calc(100vh - 180rpx);
+}
+
+/* content box */
+
+.content-box {
+  position: relative;
+  left: 0;
+}
+
+/* left menue */
+
+.left-menu {
+  background: #eee;
+  width: 160rpx;
+}
+
+.menu-category {
+  border-bottom: 1rpx solid #ccc;
+  padding: 42rpx 16rpx;
+  font-size: 28rpx;
+  text-align: center;
+  /* overflow: hidden; *//* text-overflow: ellipsis; *//* white-space: nowrap; */
+}
+
+.selected {
+  background: #fff;
+  border-bottom: 1rpx solid #f37b1d;
+}
+
+/* right list */
+
+.right-list {
+  flex: 1;
+}
+
+.food-img {
+  width: 160rpx;
+  height: 160rpx;
+}
+
+.food-name, .food-description {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 360rpx;
+}
+
+.comment-box {
+  position: absolute;
+  width: 100%;
+  left: 100%;
+  top: 390rpx;
+}
+
+/* order-bus bar*/
+
+.order-bus {
+  /* justify-content: space-around; */
+  justify-content: flex-start;
+  text-align: initial !important;
+}
+
+.order-bus-icon {
+  position: relative;
+  padding: 0 16rpx;
+}
+
+.order-bus-icon .iconfont {
+  font-size: 48rpx;
+}
+
+.order-bus-icon .mark-badge {
+  right: -14rpx !important;
+}
+
+.order-bus-text {
+  font-size: 32rpx;
+  flex: 1;
+  padding: 0 16rpx;
+}
+
+.order-submit {
+  background: #fe5858;
+  color: #fff;
+}
+
+.pop-bus-cover{
+   position:absolute!important;
+   width:100%;
+   height:calc(100vh - 90rpx);
+   background:rgba(255, 255, 255, 0.7);
+   bottom:-100vh;
+   overflow: hidden;
+   transition: bottom .3s;
+}
+.pop-bus{
+   position:absolute;
+   width:100%;
+   max-height: 400rpx;
+   height: auto;
+   background:#fff;
+   bottom: 0;
+   overflow: auto;
+}
+.pop-bus-food-list{
+  display: flex;
+  align-items: center;
+}
+.pop-bus-food-list>view:nth-child(1){
+  width: 50%;
+  text-align: left;
+}
+.pop-bus-food-list>view:nth-child(2){
+  width: 20%;
+}
+.pop-bus-food-list>view:nth-child(3){
+  width: 30%;
+  text-align: right;
+}
+.btn-wrap{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+/* food detail panel */
+
+.food-detail-panel {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  padding: 48rpx;
+  top: -100%;
+  transition: top 0.3s;
+  overflow: auto;
+  background: rgba(255, 255, 255, 0.9);
+  padding-bottom: 138rpx;
+  z-index: 4;
+}
+
+.food-detail {
+  overflow: hidden;
+  border-radius: 48rpx;
+  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.food-detail-top {
+  overflow: hidden;
+}
+
+.food-detail-top-img {
+  width: 100%;
+}

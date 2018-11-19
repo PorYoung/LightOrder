@@ -1,0 +1,90 @@
+<!--pages/search/search.wxml-->
+<view class='container' style='overflow:{{searchFocus?"hidden":""}}'>
+  <!-- Search Bar -->
+  <view class="bar bgcolor search-bar">
+    <view class='mh-sm text-sm location' style='width:{{searchFocus?0:"126rpx"}};margin:{{searchFocus?0:"0 20rpx"}}'>
+      <text class="iconfont icon-location"></text>
+      <text bindtap='tapToGetLocation'>{{location.name || location.address}}</text>
+    </view>
+    <view class='search-round mh-sm'>
+      <text class="iconfont icon-search"></text>
+      <input class='search-input' value='{{searchValue}}' confirm-type='search' placeholder='serach' bindfocus='searchBoardOn' bindinput='searchSuggestion' bindconfirm='searchSubmit' />
+    </view>
+  </view>
+  <!-- Search Board -->
+  <view class='search-board' style='height:{{searchFocus?"100%":0}};opacity:{{searchFocus?1:0}}' bindtap='searchBoardOff'>
+    <view class='search-history list-box'>
+      <view class='list-li'>
+        <view class='iconfont icon-titles success-text'>历史记录</view>
+        <view class='delet-box iconfont icon-delete delete-history' catchtap='deleteHistory'></view>
+      </view>
+      <view class='list-box lattice-list'>
+        <view class='lattice-li history-item' wx:for='{{searchHistory}}' wx:for-item='history' wx:for-index='shid' wx:key='*this' data-shid='{{shid}}' catchtap='searchSubmit'>
+          {{history}}
+        </view>
+      </view>
+    </view>
+    <view class='search-suggestion list-box'>
+      <view class='list-li'>
+        <view class='iconfont icon-titles success-text'>猜您在找</view>
+      </view>
+      <view class='list-box lattice-list'>
+        <view class='list-arrow lattice-li suggestion-item' wx:for='{{searchSuggestionResult}}' wx:for-item='ssr' wx:key='*this' wx:for-index='ssid' data-ssid='{{ssid}}' catchtap='searchSubmit'>
+          <view class="iconfont icon-search danger-text search-suggestion-icon"> </view>
+          <view class="lattice-text search-suggestion-text">
+            {{ssr}}
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- canteen lists -->
+  <view class='item-list-box mt-sm'>
+    <view class="goods-list-li" wx:for='{{canteenList}}' wx:for-item='canteen' data-uid='{{canteen.uid}}' bindtap='navToOrder'>
+      <view class='goods-list-main'>
+        <view class='c-avatar-wrap'>
+          <image src='{{canteen.avatar}}' mode='aspectFill' class='goods-list-img c-avatar'></image>
+          <view class='badge primary radius capsule-badge c-time'>
+            <text>⏱</text>
+            <text>{{canteen.startTime}}-{{canteen.closeTime}}</text>
+          </view>
+        </view>
+        <view class='goods-list-text'>
+          <view class='goods-list-top c-list-top'>
+            <view class='c-header'>
+              <view class='text-lg c-name'>{{canteen.name}}</view>
+              <view class='c-status sm warning-text'>{{canteen.status==0?'营业中':'休息中'}}</view>
+            </view>
+            <view class='rating-item'>
+              <view class='rating-star'>
+                <text wx:for="{{5}}" class="iconfont {{index<5?'icon-favorfill warning-text':'icon-favor gray-text'}}"></text>
+              </view>
+              <view class='rating-text gray-text'>
+                <text class='warning-text'>5.0</text>
+                <text>月售{{canteen.monthSale>10000?'10k+':canteen.monthSale}}份</text>
+              </view>
+            </view>
+            <view class='c-address'>
+              <text class='iconfont icon-location'></text>
+              <text class='gray-text'>{{canteen.address}}</text>
+            </view>
+          </view>
+          <view class='goods-list-foot c-list-foot'>
+            <view class='badge warning radius capsule-badge c-tips'>
+              <text>￥</text>
+              <text>{{canteen.notice}}</text>
+            </view>
+            <view class='badge secondary round capsule-badge c-tips'>
+              <text>{{canteen.delivery==0?'暂不配送':'支持配送'}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view hidden='{{canteenList.length>0?true:false}}' class='searchNull'>
+      <image src='/images/icon/404_1.png' mode='aspectFill'></image>
+      <view class='warning-text'>再怎么找也没有了</view>
+    </view>
+  </view>
+</view>

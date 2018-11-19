@@ -1,0 +1,14 @@
+/* pages/user/comment/comment.wxss */
+
+.order-box {
+  margin: 8px;
+  border-top: 16rpx solid #eee;
+  padding: 8rpx;
+  border-radius: 16rpx;
+}
+.form-box{
+  margin: 16rpx 8rpx;
+  border-top: 16rpx solid #eee;
+  padding: 8rpx;
+  border-radius: 16rpx;
+}

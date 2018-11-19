@@ -1,0 +1,51 @@
+<!--pages/user/comment/comment.wxml-->
+<view class='order-box'>
+  <view class='order-item' data-order-id='{{order.id}}'>
+    <view class='order-bar justify-between'>
+      <view class='ml-sm'>{{canteen.name}}
+        <text class='iconfont icon-right'></text> </view>
+      <view class='warning-text mr-sm'>{{order.date}}已下单</view>
+    </view>
+    <view class='order-bar justify-between'>
+      <view class='ml-sm'>订单号
+        <text class='iconfont icon-right'></text> </view>
+      <view class='warning-text mr-sm'>{{order.id}}</view>
+    </view>
+    <view class='order-bottom'>
+      <view class='pt-sm pr-sm text-right'>
+        包装费：￥0 配送费：￥0
+      </view>
+      <view class='pt-sm pr-sm text-right'>
+        共
+        <text class='warning-text'>{{order.totalCount}}</text>件商品 合计:
+        <text class='warning-text'>￥{{order.totalPrice}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+<view hidden='{{!!order}}' class='ordersNull'>
+  <image src='/images/icon/404_1.png' mode='aspectFill'></image>
+  <view class='warning-text'>再怎么找也没有了</view>
+</view>
+<view class='form-box'>
+  <view class="form-item form-textarea {{modalName==null?'':'hide'}}">
+    <view class='form-title cur'>
+      文本框
+    </view>
+    <textarea placeholder='多行文本输入框' maxlength="-1"></textarea>
+  </view>
+  <view class='form-item form-upload'>
+    <view class='form-title cur'>
+      上传图片
+    </view>
+    <view class="lattice-image">
+      <view>
+        <image src='http://image.weilanwl.com/img/4x3-1.jpg' mode='aspectFill'></image>
+        <view class='iconfont icon-close'></view>
+      </view>
+      <view class='lattice-btn'>
+        <text class='iconfont icon-cameraadd'></text>
+      </view>
+    </view>
+  </view>
+</view>

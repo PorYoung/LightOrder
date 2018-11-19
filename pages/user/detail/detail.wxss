@@ -1,0 +1,21 @@
+/* pages/user/order/order.wxss */
+page {
+  background: #f1f1f1;
+}
+.order-box{
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+}
+.order-item{
+  border-radius: 8rpx;
+}
+.order-item .goods-main{
+  background: initial;
+}
+.order-item .goods-main .goods-list-img{
+  width: 80rpx;
+  height: 80rpx;
+}
+.note{
+  padding: 20rpx;
+}

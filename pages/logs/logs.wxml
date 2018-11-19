@@ -1,0 +1,58 @@
+<!--logs.wxml-->
+<!-- location -->
+<view class="bar solid-bottom mt-sm">
+  <view class='ml-sm'>
+    <text class='iconfont icon-titles success-text'></text>
+    <text class='text-lg ml-xs'>地理位置测试</text>
+  </view>
+</view>
+<form bindsubmit="openLocation">
+  <view class="page-body-form">
+
+    <text class="page-body-form-key">经度</text>
+    <input class="page-body-form-value" type="text" value="{{location.longitude}}" name="longitude"></input>
+
+    <text class="page-body-form-key">纬度</text>
+    <input class="page-body-form-value" type="text" value="{{location.latitude}}" name="latitude"></input>
+
+
+    <text class="page-body-form-key">位置名称</text>
+    <input class="page-body-form-value" type="text" value="{{location.name}}" name="name"></input>
+
+
+    <text class="page-body-form-key">详细位置</text>
+    <input class="page-body-form-value" type="text" value="{{location.address}}" name="address"></input>
+
+  </view>
+
+  <view class="page-body-buttons">
+    <button class="page-body-button" type="primary" bindtap="getLocation">获取位置</button>
+    <button class="page-body-button" type="primary" formType="submit">查看位置</button>
+  </view>
+
+</form>
+
+<view class="bar solid-bottom mt-sm">
+  <view class='ml-sm'>
+    <text class='iconfont icon-titles success-text'></text>
+    <text class='text-lg ml-xs'>开发日志</text>
+  </view>
+</view>
+<view class='timeline'>
+  <view class="timeline-box">
+    <view class='timeline-item timeline-sm' wx:for="{{logs}}">
+      <view class='timeline-main'>
+        <view class='badge secondary radius capsule-badge'>
+          <text>{{item.date}}</text>
+          <text>{{item.time}}</text>
+        </view>
+        <view class='mt-sm text-sm logs-content'>{{item.content}}</view>
+        <view class="lattice-image">
+          <view wx:for="{{item.images}}" wx:for-item="imageSrc">
+            <image src='{{imageSrc}}' mode='aspectFill'></image>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,50 @@
+<!--pages/user/order/order.wxml-->
+<view class='container'>
+  <view class='order-box'>
+    <view class='order-item'>
+      <view class='order-bar justify-between'>
+        <view class='ml-sm'>{{canteen.name}}
+          <text class='iconfont icon-right'></text> </view>
+        <view class='warning-text mr-sm'>{{}}已下单</view>
+      </view>
+      <view class='order-bar justify-between'>
+        <view class='ml-sm'>订单号
+          <text class='iconfont icon-right'></text> </view>
+        <view class='warning-text mr-sm'>{{order.id}}</view>
+      </view>
+      <view class='goods-main' wx:for='{{orderData}}' wx:for-item='food'>
+        <image src='{{food.imgUrl}}' mode='aspectFill' class='goods-list-img food-img'></image>
+        <view class='goods-text goods-left'>
+          <view class=''>{{food.name}}</view>
+          <view class='gray-text text-sm'>{{food.description}}</view>
+          <view class='mt-xs'>
+            <text class='badge danger round mr-sm'>x {{food.count}}</text>
+          </view>
+        </view>
+        <view class='goods-info'>
+          <view class='price'>¥ {{food.price * food.count}}</view>
+          <view class='del-price' wx:if='{{food.original_price}}'>¥ {{food.original_price * food.count}}</view>
+        </view>
+      </view>
+      <view class='note'>
+          备注：<text>{{note}}</text>
+      </view>
+      <view class='order-bottom'>
+        <view class='pt-sm pr-sm text-right'>
+          包装费：￥0 配送费：￥0
+        </view>
+        <view class='pt-sm pr-sm text-right'>
+          共
+          <text class='warning-text'>{{totalCount}}</text>件商品 合计:
+          <text class='warning-text'>￥{{totalPrice}}</text>
+        </view>
+        <view class='flex p-sm justify-end'>
+          <view class=''>
+            <!-- <button class='gray btn mr-sm'>查看详情</button> -->
+            <button class='warning btn' catchtap='submitOrder'>评价</button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

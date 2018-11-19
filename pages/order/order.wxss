@@ -1,0 +1,24 @@
+/* pages/order/order.wxss */
+
+.goods-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.goods-list-img.food-img {
+  width: 120rpx !important;
+  height: 120rpx !important;
+}
+
+.notes {
+  padding: 30rpx 20rpx;
+  height: 180rpx;
+  align-items: flex-start;
+  display: flex;
+  min-height: 100rpx;
+  border-bottom: 1rpx solid #eee;
+}

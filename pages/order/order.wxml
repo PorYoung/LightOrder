@@ -1,0 +1,53 @@
+<!--pages/order/order.wxml-->
+<view class='container'>
+  <view class='order-box'>
+    <view class='order-item'>
+      <view class='order-bar justify-between'>
+        <view class='ml-sm'>{{canteen.name}}
+          <text class='iconfont icon-right'></text> </view>
+        <view class='warning-text mr-sm'>等待下单</view>
+      </view>
+
+      <view class='goods-main' wx:for='{{selectedData}}' wx:for-item='food'>
+        <image src='{{food.imageUrl}}' mode='aspectFill' class='goods-list-img food-img'></image>
+        <view class='goods-text goods-left'>
+          <view class=''>{{food.name}}</view>
+          <view class='gray-text text-sm'>{{food.description}}</view>
+          <view class='mt-xs'>
+            <text class='badge danger round mr-sm'>x {{food.count}}</text>
+            <!-- <text class='badge success round'>喵星酱</text> -->
+          </view>
+        </view>
+        <view class='goods-info'>
+          <view class='price'>¥ {{food.price * food.count}}</view>
+          <view class='del-price' wx:if='{{food.original_price}}'>¥ {{food.original_price * food.count}}</view>
+        </view>
+      </view>
+      <view class='notes'>
+        <view class='form-title cur'>
+          备注：
+        </view>
+        <textarea placeholder='多行文本输入框' maxlength="100" bindinput="getInputNote"></textarea>
+      </view>
+      <view class='order-bottom'>
+        <view class='pt-sm pr-sm text-right'>
+          包装费：￥0
+        </view>
+        <view class='pt-sm pr-sm text-right'>
+          配送费：￥0
+        </view>
+        <view class='pt-sm pr-sm text-right'>
+          共
+          <text class='warning-text'>{{totalCount}}</text>件商品 合计:
+          <text class='warning-text'>￥{{totalPrice}}</text>
+        </view>
+        <view class='flex p-sm justify-end'>
+          <view class=''>
+            <!-- <button class='gray btn mr-sm'>查看详情</button> -->
+            <button class='warning btn' catchtap='submitOrder'>立即下单</button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
